@@ -1,0 +1,26 @@
+{
+  "name": "ecommerce-agent-patterns",
+  "version": "1.0.0",
+  "description": "Agent patterns from Building Effective Agents — TypeScript, e-commerce analytics domain",
+  "type": "module",
+  "scripts": {
+    "01": "npx tsx src/01_workflow_single_call.ts",
+    "02": "npx tsx src/02_workflow_chain.ts",
+    "03": "npx tsx src/03_workflow_route.ts",
+    "04-sectioning": "npx tsx src/04_workflow_parallelization_sectioning.ts",
+    "04-voting": "npx tsx src/04_workflow_parallelization_voting.ts",
+    "05": "npx tsx src/05_workflow_orchestrator_workers.ts",
+    "06": "npx tsx src/06_workflow_evaluator_optimizer.ts",
+    "validate": "npx tsx src/shared/validate.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "openai": "^4.104.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
