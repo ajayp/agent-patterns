@@ -12,6 +12,19 @@ patterns are easy to compare.
 
 ---
 
+## Contents
+
+- [What are agents?](#what-are-agents)
+- [When (and when not) to use agents](#when-and-when-not-to-use-agents)
+- [Decision Tree](#decision-tree)
+- [Patterns](#patterns)
+- [Dataset](#dataset)
+- [Quick Start](#quick-start)
+- [Architecture](#architecture)
+- [The Anthropic Heresy: Why This Repo Skips Frameworks](#the-anthropic-heresy-why-this-repo-skips-frameworks)
+
+---
+
 ## What are agents?
 
 Anthropic draws a line between two architectural categories, the distinction that matters most, before you write a line of code:
@@ -111,3 +124,22 @@ All seven pattern files import from the same `orders`, `products`, and `customer
 ### Self-contained files
 
 Each pattern file imports only from `openai.ts` and `data.ts`. No cross-pattern dependencies.
+
+---
+
+## The Anthropic Heresy: Why This Repo Skips Frameworks
+
+This repo deliberately skips heavy agent frameworks (LangGraph, CrewAI, AutoGen) in favor of a minimal orchestration layer built on plain TypeScript.
+
+The core LLM loop is a few dozen lines of ordinary code. A framework doesn't replace that loop — it wraps it in plumbing: a graph runtime, vendor-specific tool formats, an internal state store. That plumbing has to earn its keep.
+
+| | Framework | Plain TypeScript (this repo) |
+|---|---|---|
+| Abstraction | Opaque graph runtime, vendor-specific tool formats | Explicit control flow, standard language features |
+| Debugging | Stack traces run through someone else's runtime | Regular breakpoints, step-by-step visibility |
+| Vendor lock-in | Rigid abstractions make switching providers painful | Clean separation between app logic and the LLM client |
+| State | Hidden inside the framework's internal graph state | Explicit, type-safe objects passed across calls |
+
+> Frameworks are plumbing, not a religion. For long-running multi-turn systems that need to survive server restarts, a durable execution layer (Temporal, Restate) earns its place. For everything else, plain code wins.
+
+The real work is the prompt, the eval suite, and the tool definitions — not the orchestration layer. Keeping the code plain keeps the focus there.
