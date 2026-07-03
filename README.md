@@ -14,18 +14,19 @@ patterns are easy to compare.
 
 ## What are agents?
 
-Anthropic draws a line between two architectural categories:
+Anthropic draws a line between two architectural categories, the distinction that matters most, before you write a line of code:
 
-- **Workflows** — LLMs orchestrated through predefined code paths
-- **Agents** — LLMs that dynamically direct their own processes and tool usage
+A **workflow** is a predetermined sequence of LLM calls. You wrote the steps. The model fills in the content. Predictable, debuggable, cheap.
+
+An **agent** is a loop where the model itself decides the next step. It picks tools, retries, branches. Flexible, but slower, more expensive, and harder to debug.
+
+![Workflow vs Agent](assets/workflow_vs_agent.svg)
 
 Patterns 01–04 and 06 in this repo are workflows. Pattern 05 (Orchestrator-Workers) is the closest to an agent: the orchestrator decides mid-run whether to continue, pivot, or stop, rather than following a fixed plan.
 
 ## When (and when not) to use agents
 
-1. **Start simple.** For many applications, a single well-prompted LLM call with good retrieval is enough. Only add structure when the task requires it.
-2. **Agents trade latency and cost for task performance.** Use them when flexibility and model-driven decision-making are needed — not as a default.
-3. **Match the tool to the task.** Workflows offer predictability for well-defined tasks; agents are better when the problem space can't be predetermined upfront.
+Default to workflows. Reach for an agent only when the task genuinely can't be predetermined — that's a smaller slice of real problems than it feels like. A lot of "agent" projects are workflows wearing a costume, and they'd be faster, cheaper, and easier to debug rewritten as plain steps.
 
 ---
 
