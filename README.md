@@ -29,9 +29,8 @@ patterns are easy to compare.
 
 Anthropic draws a line between two architectural categories, the distinction that matters most, before you write a line of code:
 
-A **workflow** is a predetermined sequence of LLM calls. You wrote the steps. The model fills in the content. Predictable, debuggable, cheap.
-
-An **agent** is a loop where the model itself decides the next step. It picks tools, retries, branches. Flexible, but slower, more expensive, and harder to debug.
+- A **workflow** is a predetermined sequence of LLM calls. You wrote the steps. The model fills in the content. Predictable, debuggable, cheap.
+- An **agent** is a loop where the model itself decides the next step. It picks tools, retries, branches. Flexible, but slower, more expensive, and harder to debug.
 
 ![Workflow vs Agent](assets/workflow_vs_agent.svg)
 
@@ -107,23 +106,9 @@ npm run validate
 
 ## Architecture
 
-### `openai.ts` — Typed LLM calls
-
-Every pattern imports `llmCall<T>`:
-
-```typescript
-llmCall<T>(prompt: string, schema: ZodType<T>, system?: string, model?: string): Promise<T>
-```
-
-The model is instructed to return valid JSON, validated against the caller's Zod schema.
-
-### `data.ts` — Shared dataset
-
-All seven pattern files import from the same `orders`, `products`, and `customers` arrays.
-
-### Self-contained files
-
-Each pattern file imports only from `openai.ts` and `data.ts`. No cross-pattern dependencies.
+- **`openai.ts`** — Typed LLM calls via `llmCall<T>(prompt: string, schema: ZodType<T>, system?: string, model?: string): Promise<T>`, validated against the caller's Zod schema
+- **`data.ts`** — Shared dataset; all seven pattern files import the same `orders`, `products`, and `customers` arrays
+- **Self-contained files** — Each pattern file imports only from `openai.ts` and `data.ts`. No cross-pattern dependencies
 
 ---
 
